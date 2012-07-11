@@ -1,0 +1,41 @@
+create table tastes( name varchar(20),filling varchar(20) ,Primary key(name,filling);
+create table sandwiches( location varchar(20),bread varchar(20),filling varchar(20) ,price float,Primary key(location,bread,filling));
+create table locations( lname varchar(20) primary key,phone varchar(10),address varchar(200) );
+alter table locations add constraint fk_sand_loc foreign key(lname) references sandwiches(location);
+
+
+
+insert into tastes values('Brown','Turkey');
+insert into tastes values('Brown','Beef');
+insert into tastes values('Brown','Ham');
+insert into tastes values('Jones','Cheese');
+insert into tastes values('Green','Beef');
+insert into tastes values('Green','Turkey');
+insert into tastes values('Green','Cheese');
+
+insert into sandwiches values('Lincoln','Rye','Ham',1.25);
+insert into sandwiches values('O\'Neil\'s','White','Cheese',1.20);
+insert into sandwiches values('O\'Neil\'s','Whole','Ham',1.25);
+insert into sandwiches values('Old Nag','Rye','Beef',1.35);
+insert into sandwiches values('Buttery','White','Cheese',1.00);
+insert into sandwiches values('O\'Neil\'s','White','Turkey',1.35);
+insert into sandwiches values('Buttery','White','Ham',1.10);
+insert into sandwiches values('Lincoln','Rye','Beef',1.35);
+insert into sandwiches values('Lincoln','White','Ham',1.30);
+insert into sandwiches values('Old Nag','Rye','Ham',1.40);
+
+insert into locations values('Lincoln','683 4523','Lincoln Place');
+insert into locations values('O\'Neil\'s','674 2134','Pearse St');
+insert into locations values('Old Nag','767 8132','Dame St');
+insert into locations values('Buttery','702 8132','College St');
+
+
+
+
+
+
+(i) select location from sandwiches where filling in (select filling from tastes where lower(name)='jones');
+
+(ii)select location from sandwiches s,tastes t where lower(name)='jones' and s.filling=t.filling;
+(iii)select location,count(distinct name) from sandwiches s,tastes t where s.filling=t.filling group by location;
+

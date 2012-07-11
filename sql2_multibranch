@@ -1,0 +1,33 @@
+create table holdings (branch varchar(20),title varchar(60) ,copies int);
+create table branch (bcode varchar(20) primary key references  holdings(branch),librarian varchar(50),address varchar(200));
+create table titles (title varchar(60) primary key references  holdings(title),author varchar(50),publisher varchar(200));
+
+insert into holdings values('B1','Susannah',3);
+insert into holdings values('B1','How to Fish',2);
+insert into holdings values('B1','A history of Dublin',1);
+insert into holdings values('B2','How to Fish',4);
+insert into holdings values('B2','Computers',2);
+insert into holdings values('B2','The wife',3);
+insert into holdings values('B3','A history of Dublin',1);
+insert into holdings values('B3','Computers',4);
+insert into holdings values('B3','Susannah',3);
+insert into holdings values('B3','The wife',1);
+
+
+
+insert into branch values('B1','John Smith','2 Anglesea Rd');
+insert into branch values('B2','Mary Jones','34 Pearse St');
+insert into branch values('B3','Francis owenis','Grange X');
+
+insert into  titles values('Susannah','Ann Brown','Macmillan');
+insert into  titles values('How to Fish','Amy Fly','Stop Press');
+insert into  titles values('A history of Dublin','David Little','Wiley');
+insert into  titles values('Computers','Blaise Pascal','Apple woods');
+insert into  titles values('The Wife','Ann Brown','Macmillan');
+
+
+
+(i) select Title from titles where lower(publisher)='macmillan';
+(ii) select distinct branch from holdings where title in(select title from titles where lower(author)='ann brown');
+(iii) select distinct branch from holdings h,titles t where  h.title=t.title and lower(author)='ann brown';
+(iv) select branch,sum(copies) from holdings group by branch;
